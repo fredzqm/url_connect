@@ -42,7 +42,7 @@ class ClientChat extends React.Component<IClientChatProps, IClientChatState> {
     return (
       <div>
         <Panel header="Chat" bsStyle="primary" footer={this.messenger}>
-          <ChatHistory messages={this.state.messages} />
+          <ChatHistory user={this.props.username} messages={this.state.messages} />
         </Panel>
       </div>
     );
