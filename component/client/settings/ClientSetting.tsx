@@ -41,6 +41,7 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
   }
 
   public render(): JSX.Element {
+    console.log(this.state);
     return(
       <Grid>
         <form id="settings" onSubmit={this.handleSubmit}>
@@ -106,21 +107,12 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
 
   public reloadSettings() {
     this.setState({
-      dirty: false
-    });
-    const temp = this.state;
-    for (const key in temp) {
-      if (temp.hasOwnProperty(key) && key !== "dirty") {
-        storage.get(key).then((value) => {
-          const data: any = {};
-          data[key] = {
-            original: value,
-            updated: value,
-          };
-          this.setState(data);
-        });
+      dirty: false,
+      username: {
+        original: "",
+        updated: ""
       }
-    }
+    });
   }
 
   public reset() {
