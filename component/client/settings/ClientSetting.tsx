@@ -41,7 +41,6 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
   }
 
   public render(): JSX.Element {
-    console.log(this.state);
     return(
       <Grid>
         <form id="settings" onSubmit={this.handleSubmit}>
