@@ -2,6 +2,7 @@ import * as React from "react";
 import {Grid, Row} from "react-bootstrap";
 
 import {storage} from "../backgroundContext";
+import {STORAGE_KEY_INITIALIZED} from "../Constants";
 
 interface ISettingProperty {
   original: string;
@@ -115,7 +116,10 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
   }
 
   public reset() {
-    storage.reset().then(this.reloadSettings);
+    storage.reset().then(() => {
+      storage.set(STORAGE_KEY_INITIALIZED, false);
+      this.reloadSettings();
+    });
   }
 }
 
