@@ -26,14 +26,15 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
       }
     };
 
-    storage.get("username").then((username) => {
-      this.setState({
-        username: {
-          original: username,
-          updated: username,
-        }
+    storage.get("username")
+      .then((username) => {
+        this.setState({
+          username: {
+            original: username,
+            updated: username,
+          }
+        });
       });
-    });
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -69,21 +70,25 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
         if (this.state[key].updated && this.state[key].updated !== this.state[key].original) {
           if (!promise) {
             promise = new Promise((resolve) => {
-              storage.set(key, this.state[key].updated).then(resolve);
+              storage.set(key, this.state[key].updated)
+                .then(resolve);
             });
           } else {
             const temp = promise;
             promise = new Promise((resolve) => {
-              temp.then(() => {
-                storage.set(key, this.state[key].updated).then(resolve);
-              });
+              temp
+                .then(() => {
+                  storage.set(key, this.state[key].updated)
+                    .then(resolve);
+                });
             });
           }
         }
       }
     }
     if (promise) {
-      promise.then(this.reloadSettings);
+      promise
+        .then(this.reloadSettings);
     } else {
       this.setState({
         dirty: false
@@ -116,10 +121,11 @@ class ClientSetting extends React.Component<any, IClientSettingState> {
   }
 
   public reset() {
-    storage.reset().then(() => {
-      storage.set(STORAGE_KEY_INITIALIZED, false);
-      this.reloadSettings();
-    });
+    storage.reset()
+      .then(() => {
+        storage.set(STORAGE_KEY_INITIALIZED, false);
+        this.reloadSettings();
+      });
   }
 }
 
